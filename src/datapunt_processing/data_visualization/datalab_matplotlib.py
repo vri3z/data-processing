@@ -76,7 +76,7 @@ def datalab_default(
     if isinstance(ylim, tuple):
         ax.set_ylim(ylim)
 
-    if grid is not None:
+    if grid is not None or grid != 'off':
         assert grid in ('x', 'y', 'both')
         ax.grid(axis=grid, color='gray', linestyle='--', linewidth=0.3, alpha=.3)
 
@@ -88,12 +88,12 @@ def datalab_default(
         ax.set_ylabel(ylabel, labelpad=labelpad)
 
     if add_datalab_logo:
-        # adding Gemeente Watermark Image on the bottom-left of the plot
+        # adding Gemeente Watermark Image on the top right of the plot
         logo = image.imread('AMS.jpg')
         ax.figure.figimage(
             logo,
-            xo=(ax.figure.get_figwidth() * 150) - 256,
-            yo=(ax.figure.get_figheight() * 150) - 256,
+            xo=int((ax.figure.get_figwidth() * ax.figure.dpi)) - logo.shape[1],
+            yo=int((ax.figure.get_figheight() * ax.figure.dpi)) - logo.shape[0],
             alpha=.3,
             zorder=1
         )
